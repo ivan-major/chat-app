@@ -4,5 +4,4 @@ interface Profile {
     avatar: string;
 }
 
-
 export type { Profile }

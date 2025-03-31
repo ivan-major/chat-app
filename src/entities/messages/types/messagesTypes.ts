@@ -1,3 +1,4 @@
+import type { Profile } from "@/entities/profiles/types/profileTypes.ts"
 interface Message {
     id: string;
     dialogId: string;
@@ -11,6 +12,7 @@ interface Message {
     thumbnailUrl?: string;
     duration?: number;
     caption?: string;
+    sender?: Profile
 }
 
 interface MessagesResponse {
