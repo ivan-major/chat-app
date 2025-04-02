@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import AppContainer from '@/shared/ui/Container/AppContainer.vue'
+import MediaModal from '@/entities/modals/ui/MediaModal/MediaModal.vue'
 </script>
 
 <template>
@@ -10,4 +10,5 @@ import AppContainer from '@/shared/ui/Container/AppContainer.vue'
             <RouterView />
         </AppContainer>
     </div>
+    <MediaModal />
 </template>

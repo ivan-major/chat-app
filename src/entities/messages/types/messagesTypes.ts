@@ -5,7 +5,7 @@ interface Message {
     senderId: string;
     createdAt: number;
     type: 'text' | 'image' | 'video';
-    delivered: boolean;
+    delivered?: boolean;
     content?: string;
     imageUrl?: string;
     videoUrl?: string;
@@ -22,5 +22,9 @@ interface MessagesResponse {
     hasMore: boolean;
 }
 
+interface NewMassage {
+    type: string
+    payload: Message
+}
 
-export type { Message, MessagesResponse }
+export type { Message, MessagesResponse, NewMassage }

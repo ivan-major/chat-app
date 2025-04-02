@@ -4,5 +4,5 @@ import type { MessagesResponse } from "@/entities/messages/types/messagesTypes.t
 export const apiDialogMessages = {
 	getDialogsMessages(dialogId: string, offset: number = 0) {
 		return apiInstance.fetch<MessagesResponse>(`/api/dialogs/${ dialogId }/messages?offset=${ offset }`)
-	},
-};
+	}
+}

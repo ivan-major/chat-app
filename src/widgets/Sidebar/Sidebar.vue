@@ -1,6 +1,12 @@
 <template>
-    <div class="w-1/3 h-dvh bg-sky-900 p-4 overflow-y-auto relative">
-        <AppVirtualScroll v-if="!isError" :pending="isLoadingNew" @load-more="onLoadNewData">
+    <div class="w-1/3 bg-sky-900">
+        <AppVirtualScroll
+            v-if="!isError"
+            :pending="isLoadingNew"
+            id="dialogs"
+            direction="bottom"
+            @load-more="onLoadNewData"
+        >
             <AppPreloader v-if="isLoading" size="size-16"/>
             <div v-else class="flex flex-col gap-2">
                 <SidebarDialog
@@ -34,15 +40,12 @@ import { apiProfiles } from '@/entities/profiles/api'
 
 import { useProfilesStore } from '@/entities/profiles/model/store'
 import { useDialogsStore } from '@/entities/dialogs/model/store'
-// import { useRootStore } from '@/entities/root/model/store'
 
 import type { Dialog, DialogsResponse } from '@/entities/dialogs/types/dialogsTypes'
 import type { Profile } from '@/entities/profiles/types/profileTypes'
 
 const dialogsStore = useDialogsStore()
 const profilesStore = useProfilesStore()
-// const rootStore = useRootStore()
-// const { isLoading } = storeToRefs(rootStore)
 const { profilesIds, profiles } = storeToRefs(profilesStore)
 
 const dialogData = ref<DialogsResponse>()
@@ -87,7 +90,6 @@ const getDialogsList = async (offset: number = 0) => {
 
     dialogsList.value = [...dialogsList.value, ...formatDataParticipants]
     dialogsStore.SET_DIALOGS_LIST(dialogsList.value)
-    console.log('dialogsList', dialogsList.value)
 }
 
 const onLoadData = async () => {

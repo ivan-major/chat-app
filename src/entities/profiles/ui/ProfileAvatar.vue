@@ -20,8 +20,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { Profile } from '@/entities/profiles/types/profileTypes'
 import { initialsFromName, getRandomHexColor } from '@/shared/utils/helpers'
+import type { Profile } from '@/entities/profiles/types/profileTypes'
 
 const props = defineProps<{
     profile: Profile,

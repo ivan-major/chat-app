@@ -1,5 +1,5 @@
-import type { Message } from '@/entities/messages/types/messagesTypes.ts';
-import type { Profile } from '@/entities/profiles/types/profileTypes.ts';
+import type { Message } from '@/entities/messages/types/messagesTypes.ts'
+import type { Profile } from '@/entities/profiles/types/profileTypes.ts'
 
 interface Dialog {
     id: string;
@@ -17,5 +17,3 @@ interface DialogsResponse {
 }
 
 export type { Dialog, DialogsResponse };
-
-

@@ -10,16 +10,19 @@
                 <span class="text-sm font-normal text-gray-400">{{ messageDate }}</span>
             </div>
             <p v-if="message.type === 'text'" class="text-sm font-normal py-2.5 text-gray-100">{{ message.content }}</p>
-            <div v-if="message.type === 'image'" class="flex flex-col gap-2">
-                <p v-if="message.caption" class="text-sm font-normal py-2.5 text-gray-100">{{ message.content }}</p>
-                <img
-                    :src="message.imageUrl"
-                    alt="message image"
-                    title="message image"
-                    class="w-full max-h-[480px] rounded-lg object-cover"
-                    loading="lazy"
-                >
-            </div>
+            <template v-if="message.type === 'image'">
+                <DialogImg
+                    :caption="message.caption || ''"
+                    :imageUrl="message.imageUrl || ''"
+                />
+            </template>
+            <template v-if="message.type === 'video'">
+                <DialogVideo
+                    :thumbnailUrl="message.thumbnailUrl || ''"
+                    :videoUrl="message.videoUrl || ''"
+                    :duration="message.duration || 0"
+                />
+            </template>
             <span class="text-sm font-norm text-gray-400">{{ status }}</span>
         </div>
     </div>
@@ -27,15 +30,18 @@
 </template>
 
 <script setup lang="ts">
-import type { Message } from '@/entities/messages/types/messagesTypes'
 import { computed } from 'vue'
+
 import ProfileAvatar from '@/entities/profiles/ui/ProfileAvatar.vue'
+import DialogVideo from '@/views/DialogPage/ui/DialogVideo.vue'
+import DialogImg from '@/views/DialogPage/ui/DialogImg.vue'
+
 import { getLastMessageDate } from '@/shared/utils/date'
-import type { Dialog } from '@/entities/dialogs/types/dialogsTypes'
+import type { Message } from '@/entities/messages/types/messagesTypes'
 
 const props = defineProps<{
     message: Message
-    currentDialog: Dialog | null
+    participants: string[]
 }>()
 
 const messageDate = computed(() => {
@@ -44,7 +50,7 @@ const messageDate = computed(() => {
 const classes = computed(() => ([
     'flex',
     'gap-2.5',
-    ...(props.message.senderId === props.currentDialog?.participantIds[0]
+    ...(props.message.senderId === props.participants[0]
         ? ['justify-start']
         : ['justify-end']
     ),
@@ -52,5 +58,3 @@ const classes = computed(() => ([
 const classesRejected = computed(() => (!props.message.delivered ? 'bg-red-900' : ''))
 const status = computed(() => props.message.delivered ? 'Delivered' : 'Rejected')
 </script>
-
-<style scoped></style>

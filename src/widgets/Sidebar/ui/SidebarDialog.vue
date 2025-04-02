@@ -32,28 +32,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import type { Dialog } from '@/entities/dialogs/types/dialogsTypes'
-import { getLastMessageDate } from '@/shared/utils/date'
+
 import SidebarDialogParticipant from './SidebarDialogParticipant.vue'
+
+import { getLastMessageDate } from '@/shared/utils/date'
 import { getLastMessageType } from '@/shared/utils/helpers'
 import { useRouter } from 'vue-router'
 
+import type { Dialog } from '@/entities/dialogs/types/dialogsTypes'
 
 const props = defineProps<{
     dialog: Dialog
 }>()
 
-
 const router = useRouter()
+
 const isActive = computed(() => {
     return router.currentRoute.value.params.id === props.dialog.id
 })
 const messageDate = computed(() => {
     return getLastMessageDate(props.dialog.lastMessage.createdAt)
 })
-
 const message = computed(() => getLastMessageType(props.dialog.lastMessage))
 const messageImgUrl = computed(() => {
     if(props.dialog.lastMessage.type === 'image') {
@@ -67,5 +68,3 @@ const messageImgUrl = computed(() => {
     return ''
 })
 </script>
-
-<style scoped></style>
